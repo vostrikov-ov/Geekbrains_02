@@ -35,26 +35,28 @@ class Word:
 class Sentence:
     sentence = None
 
-    def __init__(self, text):
-        self.text = text.split()
-        self.content = list(range(len(self.text)))
+    # Урок №6
+    # 4. Перестройте работу метода show класса Sentence.
+    # 5. Перестройте работу метода show_part класса Sentence, чтобы он показывал грамматические характеристики.
+    #
+
+    def __init__(self, text, content):
+        self.text = text
+        self.content = content
 
     def show(self):
         words = []
-        text_copy = self.text.copy()
-        for x in range(randint(1, len(self.text))):
-            word = choice(text_copy)
-            words.append(word)
-            text_copy.remove(word)
-        self.sentence = ' '.join(words)
+        for x in self.content:
+            words.append(self.text[x][0])
+        print('Составленное предложение:')
+        print((' '.join(words)).capitalize())
 
     def show_parts(self):
         finded_parts = []
-        sentence_parts = self.sentence.split()
-        for num_part in self.content:
-            if self.text[num_part] in sentence_parts:
-                finded_parts.append(num_part)
-        print('В составном прежложении содержатся слова исходного предложения, со следующими номерами:')
+        for x in self.content:
+           finded_parts.append(self.text[x][1])
+        finded_parts = set(finded_parts)
+        print('Грамматические хакартеристики:')
         print(*finded_parts, sep=', ')
 
 
@@ -66,7 +68,14 @@ if __name__ == '__main__':
     slovo2 = Word('Зеленое яблоко', '0:7')
     slovo2.show()
 
-    test_text = Sentence('добавьте возможность создавать объект слово со значениями в скобках')
+    text = [
+        ('Съешьте', 'глагол'), ('еще', 'наречие'), ('этих', 'местоимение'),
+        ('мягких', 'прилагательное'), ('французских', 'прилагательное'),
+        ('булок,', 'существительное'), ('да', 'союз'), ('выпейте', 'глагол'),
+        ('же', 'частица'), ('чаю', 'существительное')
+    ]
+    numbers = [0, 2, 4, 5]
+
+    test_text = Sentence(text, numbers)
     test_text.show()
-    print(f'Составленное предложение: {test_text.sentence}')
     test_text.show_parts()
